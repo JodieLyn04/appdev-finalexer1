@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +33,12 @@ public class ProductFragment extends Fragment {
 
     RecyclerView rvProduct;
     ProductAdapter productAdapter;
+    Button btnCart;
+
+    ArrayList<String> cartNames;
+    ArrayList<String> cartPrices;
+    ArrayList<String> cartQuantity;
+    ArrayList<String> cartSubTotal;
 
     public ProductFragment() {
         // Required empty public constructor
@@ -68,6 +77,17 @@ public class ProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_product,container,false);
+        if(getArguments()== null){
+            cartNames=new ArrayList<String>();
+            cartPrices=new ArrayList<String>();
+            cartQuantity=new ArrayList<String>();
+            cartSubTotal=new ArrayList<String>();
+        }else{
+            cartNames=getArguments().getStringArrayList("cartNames");
+            cartPrices=getArguments().getStringArrayList("cartPrices");
+            cartQuantity=getArguments().getStringArrayList("cartQuantity");
+            cartSubTotal=getArguments().getStringArrayList("cartSubTotal");
+        }
         rvProduct = root.findViewById(R.id.recyclerViewProduct);
         rvProduct.setLayoutManager(new GridLayoutManager(root.getContext(), 2));
         productAdapter = new ProductAdapter(root.getContext());
@@ -76,11 +96,28 @@ public class ProductFragment extends Fragment {
             public void onClick(View view, int position) {
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("position", position);
+                bundle1.putStringArrayList("cartNames", cartNames);
+                bundle1.putStringArrayList("cartPrices", cartPrices);
+                bundle1.putStringArrayList("cartQuantity", cartQuantity);
+                bundle1.putStringArrayList("cartSubTotal", cartSubTotal);
                 Navigation.findNavController(view).navigate(R.id.action_productFragment_to_detailFragment,bundle1);
 
             }
         });
         rvProduct.setAdapter(productAdapter);
+
+        btnCart = root.findViewById(R.id.buttonCart);
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("cartNames", cartNames);
+                bundle.putStringArrayList("cartPrices", cartPrices);
+                bundle.putStringArrayList("cartQuantity", cartQuantity);
+                bundle.putStringArrayList("cartSubTotal", cartSubTotal);
+                Navigation.findNavController(v).navigate(R.id.action_productFragment_to_cartFragment,bundle);
+            }
+        });
         return root;
     }
 }

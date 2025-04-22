@@ -3,13 +3,20 @@ package com.example.finalexer1;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +41,13 @@ public class DetailFragment extends Fragment {
     TextView tvDescription;
     EditText etDetailQuantity;
 
+    DecimalFormat decimalFormat;
+    Button btnAdd;
+
+    ArrayList<String> cartNames;
+    ArrayList<String> cartPrices;
+    ArrayList<String> cartQuantity;
+    ArrayList<String> cartSubTotal;
 
     public DetailFragment() {
         // Required empty public constructor
@@ -47,7 +61,7 @@ public class DetailFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment DetailFragment.
      */
-    // TODO: Rename and change types and number of parametersd
+    // TODO: Rename and change types and number of parameters
     public static DetailFragment newInstance(String param1, String param2) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
@@ -76,6 +90,19 @@ public class DetailFragment extends Fragment {
         tvDetailPrice = root.findViewById(R.id.textDetailPrice);
         tvDescription = root.findViewById(R.id.textDescription);
         etDetailQuantity = root.findViewById(R.id.editTextQuantity);
+
+        if(getArguments()== null){
+            cartNames=new ArrayList<String>();
+            cartPrices=new ArrayList<String>();
+            cartQuantity=new ArrayList<String>();
+            cartSubTotal=new ArrayList<String>();
+        }else{
+           cartNames=getArguments().getStringArrayList("cartNames");
+           cartPrices=getArguments().getStringArrayList("cartPrices");
+           cartQuantity=getArguments().getStringArrayList("cartQuantity");
+           cartSubTotal=getArguments().getStringArrayList("cartSubTotal");
+        }
+
         position = getArguments().getInt("position", 0);
         ivDetail.setImageDrawable(root.getResources().obtainTypedArray(R.array.productImages).getDrawable(position));
         tvDetailName.setText(root.getResources().getStringArray(R.array.productNames)[position]);
@@ -154,7 +181,29 @@ public class DetailFragment extends Fragment {
                 break;
         }
 
-
+        btnAdd = root.findViewById(R.id.button);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etDetailQuantity.length()==0||Integer.parseInt(etDetailQuantity.getEditableText().toString())==0){
+                    Snackbar.make(v, "Invalid Quantity", Snackbar.LENGTH_LONG).show();
+                }else {
+                    cartNames.add(root.getResources().getStringArray(R.array.productNames)[position]);
+                    cartPrices.add(root.getResources().getStringArray(R.array.productPrices)[position]);
+                    cartQuantity.add(etDetailQuantity.getEditableText().toString());
+                    decimalFormat = new DecimalFormat("#,###.00");
+                    double amount =  Double.parseDouble(etDetailQuantity.getEditableText().toString()) *
+                           Double.parseDouble(root.getResources().getStringArray(R.array.productPrices)[position]);
+                    cartSubTotal.add(decimalFormat.format(amount));
+                    Bundle bundle2 = new Bundle();
+                    bundle2.putStringArrayList("cartNames", cartNames);
+                    bundle2.putStringArrayList("cartPrices", cartPrices);
+                    bundle2.putStringArrayList("cartQuantity", cartQuantity);
+                    bundle2.putStringArrayList("cartSubTotal", cartSubTotal);
+                    Navigation.findNavController(v).navigate(R.id.action_detailFragment_to_cartFragment, bundle2);
+                }
+            }
+        });
 
         return root;
     }

@@ -15,9 +15,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
    Context myContext;
    ArrayList<String> cartNames;
-    ArrayList<String> cartPrices;
-    ArrayList<String> cartQuantity;
-    ArrayList<String> cartSubTotal;
+   ArrayList<String> cartPrices;
+   ArrayList<String> cartQuantity;
+   ArrayList<String> cartSubTotal;
 
     public CartAdapter(Context context, ArrayList<String> mcartNames, ArrayList<String> mcartPrices, ArrayList<String> mcartQuantity, ArrayList<String> mcartSubTotal) {
         myContext = context;

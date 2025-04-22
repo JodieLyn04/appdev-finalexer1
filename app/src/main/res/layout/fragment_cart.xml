@@ -15,8 +15,17 @@
         android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCart"
         android:layout_width="match_parent"
         android:layout_height="635dp" />
+
+    <Button
+        android:id="@+id/buttonList"
+        android:layout_width="229dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Product List"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +41,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

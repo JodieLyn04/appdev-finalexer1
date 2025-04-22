@@ -23,4 +23,11 @@
         android:layout_height="645dp"
         android:layout_margin="10dp" />
 
+    <Button
+        android:id="@+id/buttonCart"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="My Cart" />
+
 </LinearLayout>

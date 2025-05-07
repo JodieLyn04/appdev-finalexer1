@@ -4,30 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/light_gray"
     android:orientation="vertical"
     tools:context=".ProductFragment">
 
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center_horizontal"
-        android:text="Product List"
-        android:textAlignment="center"
-        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProduct"
         android:layout_width="match_parent"
-        android:layout_height="645dp"
-        android:layout_margin="10dp" />
-
-    <Button
-        android:id="@+id/buttonCart"
-        android:layout_width="176dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="My Cart" />
+        android:layout_margin="8dp" />
 
 </LinearLayout>

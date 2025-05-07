@@ -27,19 +27,15 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        getSupportActionBar().setLogo(R.drawable.f1_logo);
+        getSupportActionBar().setTitle("Store");
+
+
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //return super.onCreateOptionsMenu(menu)
-        getMenuInflater().inflate(R.menu.menus,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        //return super.onOptionsItemSelected(item);
-
-        return true;
-    }
 }
